@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="andrew.zach.lmsprototype1.MainActivity" android:background="@drawable/soccer_image">
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Player"
+            android:id="@+id/sendT"
+            android:layout_above="@+id/pressViewPlayers" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*App Notifications *"
+            android:id="@+id/textView"
+            android:textColor="#fbeb01" android:layout_below="@+id/textView3"
+            android:layout_alignStart="@+id/changeDatabaseInfo"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamInputText" android:layout_below="@+id/textView" android:layout_centerHorizontal="true"
+            android:layout_marginTop="37dp" android:text="Enter a player into the league!" android:inputType="text"
+            android:textColor="#2bf1da"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Notifications*"
+            android:id="@+id/notifications" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"
+            android:layout_marginBottom="56dp" android:textColor="#f3fb05"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset League"
+            android:id="@+id/changeDatabaseInfo"
+            android:layout_below="@+id/pressViewPlayers" android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="LAST MAN STANDING"
+            android:id="@+id/textView2" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:textColor="@color/abc_primary_text_disable_only_material_light"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*PROTOTYPE 1*"
+            android:id="@+id/textView3" android:layout_below="@+id/textView2"
+            android:layout_alignEnd="@+id/notifications"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Current Players"
+            android:id="@+id/pressViewPlayers"
+            android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+</RelativeLayout>

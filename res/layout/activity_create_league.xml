@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_league"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lastmanstandinglayout2.CreateLeagueActivity">
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView38"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:textAlignment="center"
+        android:textStyle="normal|bold|italic"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:fontFamily="serif"
+        app:layout_constraintHorizontal_bias="0.4"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:text="@string/form_league_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView39"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.18"
+        android:textSize="18sp"
+        android:textColor="@color/blackText"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText9" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText9"
+        android:layout_marginStart="24dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView39"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView38"
+        app:layout_constraintHorizontal_bias="0.43"
+        android:layout_width="0dp"
+        android:hint="@string/league_name" />
+
+    <TextView
+        android:text="@string/form_select_league"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView40"
+        app:layout_constraintRight_toRightOf="@+id/textView39"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="18sp"
+        android:textColor="@color/blackText"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    <RadioGroup
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView40"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintHorizontal_bias="0.6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/textView40">
+
+        <RadioButton
+            android:text="@string/premier_league"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton"
+            android:layout_weight="1"
+            android:checked="true"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:text="@string/la_liga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton2"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="@string/form_entry_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView41"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintRight_toRightOf="@+id/textView40"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="18sp"
+        android:textColor="@color/blackText"
+        android:layout_marginTop="72dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+    <RadioGroup
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup2"
+        android:layout_marginStart="24dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView41"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.66"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toTopOf="@+id/textView41">
+
+        <RadioButton
+            android:text="@string/entry_fee_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton3"
+            android:layout_weight="1"
+            android:checked="true" />
+
+        <RadioButton
+            android:text="@string/entry_fee_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton5"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="@string/entry_fee_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton4"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="@string/entry_fee_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton7"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <Button
+        android:text="@string/create_league"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button6"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        android:onClick="leagueCreated"/>
+</android.support.constraint.ConstraintLayout>

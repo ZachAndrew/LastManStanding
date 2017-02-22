@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_log_in"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lastmanstandinglayout2.LogInActivity">
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:textSize="30sp"
+        android:fontFamily="serif"
+        android:textStyle="normal|bold|italic"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="@string/form_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:textSize="18sp"
+        android:textColor="@color/blackText"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText5" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editText5"
+        android:hint="@string/email"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView15"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.66" />
+
+    <TextView
+        android:text="@string/form_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textColor="@color/blackText"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@+id/textView15"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText6" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText6"
+        android:hint="@string/password"
+        app:layout_constraintLeft_toLeftOf="@+id/editText5"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText5"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_width="0dp" />
+
+    <Button
+        android:text="@string/log_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        android:onClick="leagues"/>
+
+    <TextView
+        android:text="@string/dont_have_an_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="32dp"
+        android:textSize="18sp"
+        app:layout_constraintVertical_bias="0.47" />
+
+    <TextView
+        android:text="@string/sign_up_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintVertical_bias="0.0"
+        android:textSize="18sp"
+        android:textColor="@color/link"
+        android:onClick="signUp"/>
+
+    <TextView
+        android:text="@string/forgotten_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView24"
+        app:layout_constraintLeft_toLeftOf="@+id/editText6"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText6"
+        android:textColor="@color/link"
+        android:onClick="passwordReset"
+        android:textSize="18sp" />
+</android.support.constraint.ConstraintLayout>

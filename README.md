@@ -1,2 +1,2 @@
-# LastManStanding
-A repository to store app code for an Android developed application.
+# SecuirtyApp
+A password storage application, used to manage online accounts and passwords.

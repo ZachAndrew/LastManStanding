@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lastmanstandinglayout2">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoTitleBar">
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LeaguesActivity"
+            android:label="@string/title_activity_leagues"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FixturesAndResultsActivity"
+            android:label="@string/nav_fixtures_and_results"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".HowToPlayActivity"
+            android:label="@string/nav_how_to_play"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/nav_profile"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/nav_help"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/nav_settings"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/sign_up" />
+        <activity
+            android:name=".LogInActivity"
+            android:label="@string/log_in" />
+        <activity
+            android:name=".EmailVerificationActivity"
+            android:label="@string/email_verification" />
+        <activity
+            android:name=".PasswordResetActivity"
+            android:label="@string/password_reset" />
+        <activity
+            android:name=".CreateLeagueActivity"
+            android:label="@string/create_league"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".JoinLeagueActivity"
+            android:label="@string/join_league"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".ManageLeagueActivity"
+            android:label="@string/manage_league"
+            android:parentActivityName=".ViewLeagueActivity" />
+        <activity
+            android:name=".ViewLeagueActivity"
+            android:label="@string/view_league"
+            android:parentActivityName=".LeaguesActivity" />
+        <activity
+            android:name=".LeagueCreatedActivity"
+            android:label="@string/league_created" />
+        <activity
+            android:name=".PickTeamActivity"
+            android:label="@string/pick_team"
+            android:parentActivityName=".ViewLeagueActivity" />
+        <activity android:name=".BillingInformationActivity"
+            android:label="@string/billing_information"
+            android:parentActivityName=".ProfileActivity"/>
+    </application>
+
+</manifest>

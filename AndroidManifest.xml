@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lastmanstandingv1">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/sign_up" />
+        <activity
+            android:name=".LogInActivity"
+            android:label="@string/log_in" />
+        <activity
+            android:name=".EmailVerificationActivity"
+            android:label="@string/email_verification" />
+        <activity
+            android:name=".LeaguesActivity"
+            android:label="@string/title_activity_leagues"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PasswordResetActivity"
+            android:label="@string/password_reset" />
+    </application>
+
+</manifest>

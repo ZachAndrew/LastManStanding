@@ -1,0 +1,112 @@
+<resources>
+    <string name="app_name">Last Man Standing</string>
+
+    <string name="sign_up_link"><u>Si</u>g<u>n u</u>p</string>
+    <string name="log_in_link"><u>Lo</u>g<u> in</u></string>
+    <string name="forgotten_password"><u>For</u>g<u>otten </u>p<u>assword</u></string>
+    <string name="leagues_link"><u>Lea</u>g<u>ues</u></string>
+    <string name="manage_league_link"><u>Mana</u>g<u>e</u></string>
+    <string name="billing_information_link"><u>Billin</u>g<u> Information</u></string>
+    <string name="log_out_link"><u>Lo</u>g<u> Out</u></string>
+
+    <string name="welcome">Welcome to</string>
+    <string name="slash">\\</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+    <string name="form_name">Name:</string>
+    <string name="name">Name</string>
+    <string name="form_email">Email:</string>
+    <string name="email">Email</string>
+    <string name="form_password">Password:</string>
+    <string name="password">Password</string>
+    <string name="form_confirm_password">Confirm Password:</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+
+    <string name="email_verification">Email Verification</string>
+    <string name="email_verification_message">An email has been sent to you to verify your account.</string>
+    <string name="email_verification_resend_message">If you have not received an email, please enter your email address below and click the resend button.</string>
+    <string name="email_verification_resend">Resend</string>
+    <string name="email_verification_log_in">You can log in once you have verified your account.</string>
+
+    <string name="password_reset_message">If you have a forgotten your password please enter your email address below and request a password reset.</string>
+    <string name="password_reset_log_in">You can log in once you have reset your password.</string>
+    <string name="password_reset">Password Reset</string>
+    <string name="reset">Reset</string>
+
+    <string name="my_leagues">My Leagues</string>
+    <string name="league_name_sample">\'League Name\'</string>
+    <string name="in_out">\'In\\Out\'</string>
+    <string name="pending">Pending</string>
+
+    <string name="form_league_name">League Name:</string>
+    <string name="league_name">League Name</string>
+    <string name="form_select_league">Select League:</string>
+    <string name="premier_league">Premier League</string>
+    <string name="la_liga">La Liga</string>
+    <string name="form_entry_fee">Entry Fee:</string>
+    <string name="entry_fee_5">€5</string>
+    <string name="entry_fee_10">€10</string>
+    <string name="entry_fee_20">€20</string>
+    <string name="entry_fee_50">€50</string>
+    <string name="league_created_message">Your league was successfully created. Here is your league code that is used by other users to access your league.</string>
+    <string name="league_created_message2">Send this code to your friends and family so they can join your league.</string>
+    <string name="league_code_sample">\'League Code\'</string>
+
+    <string name="form_league_code">League Code:</string>
+    <string name="league_code">League Code</string>
+
+    <string name="your_pick">Your pick:</string>
+    <string name="pick_or_change_team">Pick\\Change Team</string>
+    <string name="team_name_sample">\'Team Name\'</string>
+    <string name="team_badge">Team Badge</string>
+    <string name="deadline">Deadline:</string>
+    <string name="deadline_sample">\'Deadline\'</string>
+    <string name="standings">Standings</string>
+    <string name="player_name_sample">\'Player Name\'</string>
+    <string name="available_teams">Available Teams</string>
+
+    <string name="remove_players">Remove Players</string>
+    <string name="requests">Requests</string>
+    <string name="remove_button">Remove Button</string>
+    <string name="accept_button">Accept Button</string>
+    <string name="delete_league">Delete League</string>
+
+    <string name="week_number">\'Week Number\'</string>
+    <string name="previous_week">Previous</string>
+    <string name="next_week">Next</string>
+    <string name="vs">vs</string>
+
+    <string name="form_balance">Balance:</string>
+    <string name="balance_sample">\'Balance\'</string>
+    <string name="add_funds">Add Funds</string>
+    <string name="cash_out">Cash Out</string>
+
+    <string name="settings_sounds">Sounds:</string>
+    <string name="settings_sounds_button">Sounds Button</string>
+    <string name="settings_notifications">Notifications:</string>
+    <string name="settings_notifications_button">Notifications Button</string>
+
+    <string name="rules">Rules</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="users_name">\'Users Name\'</string>
+    <string name="users_email">\'UsersEmail@gmail.com\'</string>
+    <string name="create_league">Create League</string>
+    <string name="join_league">Join League</string>
+    <string name="view_league">View League</string>
+    <string name="manage_league">Manage League</string>
+    <string name="league_created">League Created</string>
+    <string name="pick_team">Pick Team</string>
+    <string name="nav_fixtures_and_results">Fixtures \\ Results</string>
+    <string name="nav_how_to_play">How To Play</string>
+    <string name="nav_profile">Profile</string>
+    <string name="billing_information">Billing Information</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_help">Help</string>
+    <string name="title_activity_leagues">LeaguesActivity</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

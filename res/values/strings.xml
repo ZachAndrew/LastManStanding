@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LMSprototype1</string>
+    <string name="action_settings">Settings</string>
+    <string name="enter_a_team_to_upload">Enter a team to upload!</string>
+    <string name="upload">Upload</string>
+    <string name="players_in_league_1">Players in League 1</string>
+</resources>

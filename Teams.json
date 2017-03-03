@@ -1,0 +1,106 @@
+{
+  "Teams" : {
+    "Premier League" : {
+      "AFC Bournemouth" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FBournemouth_badge.png?alt=media&token=00fb8f14-78a4-4dd9-a83a-66a99f459d58",
+        "Name" : "Bournemouth",
+        "Short Name" : "BOU"
+      },
+      "Arsenal" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FArsenal_badge.png?alt=media&token=2d011c42-1842-40bd-861e-30c72dab7f0a",
+        "Name" : "Arsenal",
+        "Short Name" : "ARS"
+      },
+      "Burnley" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FBurnley_badge.png?alt=media&token=6f707636-aab9-45a9-a015-b7f4bc141e64",
+        "Name" : "Burnley",
+        "Short Name" : "BUR"
+      },
+      "Chelsea" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FChelsea_badge.png?alt=media&token=193c5905-74f7-4261-9cbb-48d4628a5a6a",
+        "Name" : "Chelsea",
+        "Short Name" : "CHE"
+      },
+      "Crystal Palace" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FCrystal_Palace_badge.png?alt=media&token=4b4c2a44-2c1e-4403-9351-d63d6c9c75d4",
+        "Name" : "Crystal Palace",
+        "Short Name" : "CRY"
+      },
+      "Everton" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FEverton_badge.png?alt=media&token=3e4760a9-1b98-4a13-a881-1239ca2239aa",
+        "Name" : "Everton",
+        "Short Name" : "EVE"
+      },
+      "Hull City" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FHull_badge.png?alt=media&token=c7afc47d-f936-4d73-8b57-2ab4e651b582",
+        "Name" : "Hull",
+        "Short Name" : "HUL"
+      },
+      "Leicester City" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FLeicester_badge.png?alt=media&token=6e216c42-6597-44db-84ae-35e59501974d",
+        "Name" : "Leicester",
+        "Short Name" : "LEI"
+      },
+      "Liverpool" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FLiverpool_badge.png?alt=media&token=1cd5cf80-89d4-4e80-b74c-38519737bae2",
+        "Name" : "Liverpool",
+        "Short Name" : "LIV"
+      },
+      "Manchester City" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FMan_City_badge.png?alt=media&token=43526947-b331-46a4-bd1c-033346f3c7d9",
+        "Name" : "Man City",
+        "Short Name" : "MCI"
+      },
+      "Manchester United" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FMan_Utd_badge.png?alt=media&token=ee501e75-e473-4c47-b32e-e9fef7d37b32",
+        "Name" : "Man Utd",
+        "Short Name" : "MUN"
+      },
+      "Middlesbrough" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FMiddlesbrough_badge.png?alt=media&token=cf56c937-426c-43ec-8f3a-b4dcc7d8ac8b",
+        "Name" : "Middlesbrough",
+        "Short Name" : "MID"
+      },
+      "Southampton" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FSouthampton_badge.png?alt=media&token=79c84f00-f4c0-45d0-ac25-6ffb412f221a",
+        "Name" : "Southampton",
+        "Short Name" : "SOU"
+      },
+      "Stoke City" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FStoke_badge.png?alt=media&token=542543ea-5392-42c1-bcff-6dffd019954d",
+        "Name" : "Stoke",
+        "Short Name" : "STK"
+      },
+      "Sunderland" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FSunderland_badge.png?alt=media&token=f1c29bbe-f352-4c6c-91a5-595c53f5f4f4",
+        "Name" : "Sunderland",
+        "Short Name" : "SUN"
+      },
+      "Swansea City" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FSwansea_badge.png?alt=media&token=25d7da3c-90c8-4063-8dbc-bb797c76fe70",
+        "Name" : "Swansea",
+        "Short Name" : "SWA"
+      },
+      "Tottenham Hotspur" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FSpurs_badge.png?alt=media&token=850558b0-ea7b-449a-9e6a-4f7f77ce75d1",
+        "Name" : "Spurs",
+        "Short Name" : "TOT"
+      },
+      "Watford" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FWatford_badge.png?alt=media&token=e573a052-802e-402f-ae2d-bb52bdd8738d",
+        "Name" : "Watford",
+        "Short Name" : "WAT"
+      },
+      "West Bromwich Albion" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FWest_Brom_badge.png?alt=media&token=81a52035-8d82-4782-b5c4-7c8df2864712",
+        "Name" : "West Brom",
+        "Short Name" : "WBA"
+      },
+      "West Ham United" : {
+        "Badge" : "https://firebasestorage.googleapis.com/v0/b/last-man-standing-dd912.appspot.com/o/Badges%2FPremier%20League%2FWest_Ham_badge.png?alt=media&token=7fd339b4-063a-493e-8c09-576e3f7c3ff4",
+        "Name" : "West Ham",
+        "Short Name" : "WHU"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "Leagues" : {
+    "'LeagueID'" : {
+      "Entry Fee" : "'Entry fee for the league'",
+      "Name" : "'Name of the league'",
+      "Owner" : "'UserID of owner'",
+      "Participants" : {
+        "'UserID'" : "'In/Out'"
+      }
+    }
+  },
+  "Participants" : {
+    "'LeagueID'" : {
+      "'UserID'" : {
+        "Week1" : "'The team the user picked for week1"
+      }
+    }
+  },
+  "Teams" : {
+    "Arsenal" : {
+      "Badge" : "'Badge image url in firebase storage'"
+    }
+  },
+  "Users" : {
+    "'UserID'" : {
+      "Leagues" : {
+        "'LeagueID'" : true
+      },
+      "Name" : "John"
+    }
+  },
+  "Weeks" : {
+    "Current Week" : "'Current game week'",
+    "Week1" : {
+      "Deadline" : "'1 hour before the first game'",
+      "Matches" : {
+        "Game1" : {
+          "Away" : "'Away Team'",
+          "Away Goals" : "'Amount of goals away team scored'",
+          "Home" : "'Home Team'",
+          "Home Goals" : "'Amount of goals home team scored'",
+          "Kickoff" : "'Kickoff time'"
+        }
+      },
+      "Results" : {
+        "'Team Name'" : "Result - Win/Loss/Draw/Postponed'"
+      }
+    }
+  }
+}

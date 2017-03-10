@@ -15,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,16 +40,16 @@ public class FixturesAndResultsActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
 
+    private ArrayList<FixturesModel> fixturesProperties = new ArrayList<>();
+
     private TextView mUser_name;
     private TextView mUser_email;
     private String mGameweek;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     TextView mGameweek_Field;
-    Button mPreviousBtn;
-    Button mNextBtn;
     ListView mListView;
-    private ArrayList<String> mArraylistSectionLessons = new ArrayList<>();
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class FixturesAndResultsActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
+        setProgressBarIndeterminateVisibility(true);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,7 +78,7 @@ public class FixturesAndResultsActivity extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (user != null && user.isEmailVerified()) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     View header = navigationView.getHeaderView(0);
@@ -85,6 +90,8 @@ public class FixturesAndResultsActivity extends AppCompatActivity
                 } else {
                     //User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Intent intent = new Intent(FixturesAndResultsActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
                 }
             }
         };
@@ -96,31 +103,39 @@ public class FixturesAndResultsActivity extends AppCompatActivity
         gameweekRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mGameweek_Field.setText("Week " + dataSnapshot.child("Current Gameweek").getValue().toString());
-                mGameweek = dataSnapshot.child("Current Gameweek").getValue().toString();
-                DatabaseReference myRef = database.getReference("Premier League").child(mGameweek).child("Matches");
+                if(mGameweek == null || mGameweek == dataSnapshot.child("Current Gameweek").getValue().toString()) {
+                    mGameweek_Field.setText("Week " + dataSnapshot.child("Current Gameweek").getValue().toString());
+                    mGameweek = dataSnapshot.child("Current Gameweek").getValue().toString();
+                    DatabaseReference myRef = database.getReference("Premier League").child(mGameweek).child("Matches");
 
-                // List Views
-                mListView = (ListView) findViewById(R.id.listView);
-                final ArrayAdapter<String> arrayAdapterLessons = new ArrayAdapter<String>(FixturesAndResultsActivity.this, android.R.layout.simple_list_item_1, mArraylistSectionLessons);
-                mListView.setAdapter(arrayAdapterLessons);
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        arrayAdapterLessons.clear();
-                        arrayAdapterLessons.notifyDataSetChanged();
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            String value = child.child("Home").getValue().toString() + " " + child.child("Home Goals").getValue().toString() + " vs " + child.child("Away Goals").getValue().toString() + " " + child.child("Away").getValue().toString();
-                            mArraylistSectionLessons.add(value);
-                            arrayAdapterLessons.notifyDataSetChanged();
+                    // List Views
+                    mListView = (ListView) findViewById(R.id.listView);
+                    final ArrayAdapter<FixturesModel> fixturesAdapter = new fixturesArrayAdapter(FixturesAndResultsActivity.this, 0, fixturesProperties);
+                    mListView.setAdapter(fixturesAdapter);
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            fixturesAdapter.clear();
+                            fixturesAdapter.notifyDataSetChanged();
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                String homeBadge = child.child("Home").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                                String homeTeam = child.child("Home").getValue().toString();
+                                String homeGoals = child.child("Home Goals").getValue().toString();
+                                String awayGoals = child.child("Away Goals").getValue().toString();
+                                String awayTeam = child.child("Away").getValue().toString();
+                                String awayBadge = child.child("Away").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                                fixturesAdapter.add(new FixturesModel(homeBadge, homeTeam, homeGoals, awayGoals, awayTeam, awayBadge));
+                                fixturesAdapter.notifyDataSetChanged();
+                            }
+                            mProgressBar.setVisibility(View.GONE);
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
 
-                });
+                    });
+                }
             }
 
             @Override
@@ -175,9 +190,6 @@ public class FixturesAndResultsActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_help) {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
@@ -186,6 +198,10 @@ public class FixturesAndResultsActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void logOut (View v) {
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override
@@ -213,17 +229,22 @@ public class FixturesAndResultsActivity extends AppCompatActivity
 
             // List Views
             mListView = (ListView) findViewById(R.id.listView);
-            final ArrayAdapter<String> arrayAdapterLessons = new ArrayAdapter<String>(FixturesAndResultsActivity.this, android.R.layout.simple_list_item_1, mArraylistSectionLessons);
-            mListView.setAdapter(arrayAdapterLessons);
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            final ArrayAdapter<FixturesModel> previousFixturesAdapter = new fixturesArrayAdapter(FixturesAndResultsActivity.this, 0, fixturesProperties);
+            mListView.setAdapter(previousFixturesAdapter);
+            myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    arrayAdapterLessons.clear();
-                    arrayAdapterLessons.notifyDataSetChanged();
+                    previousFixturesAdapter.clear();
+                    previousFixturesAdapter.notifyDataSetChanged();
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        String value = child.child("Home").getValue().toString() + " " + child.child("Home Goals").getValue().toString() + " vs " + child.child("Away Goals").getValue().toString() + " " + child.child("Away").getValue().toString();
-                        mArraylistSectionLessons.add(value);
-                        arrayAdapterLessons.notifyDataSetChanged();
+                        String homeBadge = child.child("Home").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                        String homeTeam = child.child("Home").getValue().toString();
+                        String homeGoals = child.child("Home Goals").getValue().toString();
+                        String awayGoals = child.child("Away Goals").getValue().toString();
+                        String awayTeam = child.child("Away").getValue().toString();
+                        String awayBadge = child.child("Away").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                        previousFixturesAdapter.add(new FixturesModel(homeBadge, homeTeam, homeGoals, awayGoals, awayTeam, awayBadge));
+                        previousFixturesAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -246,17 +267,22 @@ public class FixturesAndResultsActivity extends AppCompatActivity
 
             // List Views
             mListView = (ListView) findViewById(R.id.listView);
-            final ArrayAdapter<String> arrayAdapterLessons = new ArrayAdapter<String>(FixturesAndResultsActivity.this, android.R.layout.simple_list_item_1, mArraylistSectionLessons);
-            mListView.setAdapter(arrayAdapterLessons);
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            final ArrayAdapter<FixturesModel> fixturesAdapter = new fixturesArrayAdapter(FixturesAndResultsActivity.this, 0, fixturesProperties);
+            mListView.setAdapter(fixturesAdapter);
+            myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    arrayAdapterLessons.clear();
-                    arrayAdapterLessons.notifyDataSetChanged();
+                    fixturesAdapter.clear();
+                    fixturesAdapter.notifyDataSetChanged();
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        String value = child.child("Home").getValue().toString() + " " + child.child("Home Goals").getValue().toString() + " vs " + child.child("Away Goals").getValue().toString() + " " + child.child("Away").getValue().toString();
-                        mArraylistSectionLessons.add(value);
-                        arrayAdapterLessons.notifyDataSetChanged();
+                        String homeBadge = child.child("Home").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                        String homeTeam = child.child("Home").getValue().toString();
+                        String homeGoals = child.child("Home Goals").getValue().toString();
+                        String awayGoals = child.child("Away Goals").getValue().toString();
+                        String awayTeam = child.child("Away").getValue().toString();
+                        String awayBadge = child.child("Away").getValue().toString().toLowerCase().replace(" ", "_") + "_badge";
+                        fixturesAdapter.add(new FixturesModel(homeBadge, homeTeam, homeGoals, awayGoals, awayTeam, awayBadge));
+                        fixturesAdapter.notifyDataSetChanged();
                     }
                 }
 

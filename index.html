@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+	<head>
+	
+		<link href="updateScoresStyle.css" rel="stylesheet" type="text/css">
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	</head>
+	
+	<body onload="getCurrentGameweek();">
+		
+		<div id="container">
+		
+			<div id="heading_container">
+			
+				<button id="previousButton" onclick="previousWeek();">Previous Week</button>
+				<h1 id="heading"></h1>
+				<button id="nextButton" onclick="nextWeek();">Next Week</button>
+				
+			</div>
+			
+			<div id="fixtures_table">
+			</div>
+			
+			<div id="btns">
+				<button onclick="updateScores();">Update Scores</button>
+				<button onclick="resetScores();">Reset Scores</button>
+			</div>
+			
+			<div id="moreBtns">
+				<button id="getCurrentGameweekBtn" onclick="getCurrentGameweek();">Return To Current Gameweek</button>
+				<button id="updateGameweekBtn" onclick="updateGameweek();">Update Gameweek</button>
+			</div>
+			
+			<div id="updatedScoresMessage"><strong>Scores have been updated!</strong></div>
+			<div id="invalidScoreMessage"><strong>Invalid score found!</strong></div>
+			<div id="resetScoresMessage"><strong>Scores have been reset!</strong></div>
+			<div id="updatedGameweekMessage"><strong>Gameweek has been updated!</strong></div>
+			
+		</div>
+		
+	</body>
+	
+	<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyCI-6C0zsgky7XPRQKHEBp92rRJ4VHAhJs",
+		authDomain: "last-man-standing-7ea2b.firebaseapp.com",
+		databaseURL: "https://last-man-standing-7ea2b.firebaseio.com",
+		storageBucket: "last-man-standing-7ea2b.appspot.com",
+		messagingSenderId: "815584218855"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	
+	<script>
+		
+		var currentGameweek;
+		var updatingGameweek;
+		var gameweek;
+		var noOfGames;
+		
+		function getCurrentGameweek() {
+			var currentGameweekRef = firebase.database().ref('Premier League/Current Gameweek');
+			currentGameweekRef.on('value', function(snapshot) {
+				currentGameweek = snapshot.val();
+				updatingGameweek = snapshot.val();
+				gameweek = snapshot.val();
+				document.getElementById("heading").innerHTML = "Gameweek " + currentGameweek;
+				getFixtures(currentGameweek);
+			});
+		}
+		
+		function getFixtures(currentGameweek) {
+			var fixturesRef = firebase.database().ref('Premier League/' + currentGameweek + "/Matches");
+			var homeTeam;
+			var homeGoals;
+			var awayTeam;
+			var awayGoals;
+			
+			document.getElementById("getCurrentGameweekBtn").style.display = "none";
+			document.getElementById("updateGameweekBtn").style.display = "inline";
+					
+			fixturesRef.on("value", function(snapshot) {
+				document.getElementById('fixtures_table').innerHTML = "";
+						
+				snapshot.forEach(function(childSnapshot) {
+					noOfGames = childSnapshot.key;
+					homeTeam = childSnapshot.child('Home').val();
+					homeGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Home' class='scores' value=" + childSnapshot.child('Home Goals').val() + "> </input>";
+					awayTeam = childSnapshot.child('Away').val();
+					awayGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Away' class='scores' value=" + childSnapshot.child('Away Goals').val() + "> </input>";
+					
+					var span = document.createElement('span');
+					//span.innerHTML = ['<p id="',key, '" class="game">', homeTeam, homeGoals, awayGoals, awayTeam, '</p>'].join('');
+          			span.innerHTML = ['<div id="Game_',noOfGames,'" class="game"> <div id="Game_',noOfGames,'_Home_Team" class="homeTeam">', homeTeam, '</div> <div class="goals">', homeGoals, " - ", awayGoals, '</div> <div id="Game_',noOfGames,'_Away_Team" class="awayTeam">', awayTeam, '</div> </div>'].join('');
+					fixtures = document.getElementById('fixtures_table');
+					fixtures.insertBefore(span, null);
+				});
+			});
+		}
+		
+		function updateScores() {
+			var updates = {};
+			var invalidScoreFound = false;
+			for (var i=1; i <= parseInt(noOfGames); i++) {
+				var homeGoals = document.getElementById("Game_" + i + "_Home").value;
+				var awayGoals = document.getElementById("Game_" + i + "_Away").value;
+				
+				if (homeGoals != "" && awayGoals != "") {
+					console.log("Valid score!");
+					document.getElementById("Game_"+i+"_Home_Team").style.color = "black";
+					document.getElementById("Game_"+i+"_Away_Team").style.color = "black";
+					
+					updates["/Premier League/" + currentGameweek + "/Matches/" + i + "/Home Goals"] = homeGoals.toString();
+					updates["/Premier League/" + currentGameweek + "/Matches/" + i + "/Away Goals"] = awayGoals.toString();
+				} else if ((homeGoals == "" && awayGoals != "") || (awayGoals == "" && homeGoals != "")) {
+					console.log("Invalid score!");
+					document.getElementById("Game_"+i+"_Home_Team").style.color = "red";
+					document.getElementById("Game_"+i+"_Away_Team").style.color = "red";
+					invalidScoreFound = true;
+				}
+			}
+			firebase.database().ref().update(updates);
+			
+			$('#updatedScoresMessage').fadeIn(1000);
+			$('#updatedScoresMessage').fadeOut(2500);
+			
+			if (invalidScoreFound) {
+				$('#invalidScoreMessage').fadeIn(1000);
+				$('#invalidScoreMessage').fadeOut(2500);
+				invalidScore = false;
+			}
+		}
+		
+		
+		function resetScores() {
+			var r = confirm("Are you sure you want to reset the scores for this gameweek?");
+			if (r == true) {
+				var resetScores = {};
+				for (var j=1; j <= parseInt(noOfGames); j++) {
+					document.getElementById("Game_"+j+"_Home_Team").style.color = "black";
+					document.getElementById("Game_"+j+"_Away_Team").style.color = "black";
+					resetScores["/Premier League/" + gameweek + "/Matches/" + j + "/Home Goals"] = "";
+					resetScores["/Premier League/" + gameweek + "/Matches/" + j + "/Away Goals"] = "";
+				}
+				resetScores["/Premier League/" + gameweek + "/Results"] = null;
+				firebase.database().ref().update(resetScores);
+				
+				$('#resetScoresMessage').fadeIn(1000);
+				$('#resetScoresMessage').fadeOut(2500);
+			} else {
+			}
+		}
+		
+		function previousWeek() {
+			if (gameweek == 1) {
+				document.getElementById("previousButton").disabled = true;
+				return;
+			} else {
+				gameweek--;
+				if (gameweek == currentGameweek) {
+					document.getElementById("getCurrentGameweekBtn").style.display = "none";
+					document.getElementById("updateGameweekBtn").style.display = "inline";
+				} else {
+					document.getElementById("updateGameweekBtn").style.display = "none";
+					document.getElementById("getCurrentGameweekBtn").style.display = "inline";
+				}
+				
+				if(gameweek == 1) {
+					document.getElementById("previousButton").disabled = true;
+				}
+				
+				if(gameweek == 37) {
+					document.getElementById("nextButton").disabled = false;
+				}
+				
+				var fixturesRef = firebase.database().ref('Premier League/' + gameweek + "/Matches");
+				var homeTeam;
+				var homeGoals;
+				var awayTeam;
+				var awayGoals;
+				
+				fixturesRef.on("value", function(snapshot) {
+					document.getElementById('fixtures_table').innerHTML = "";
+					document.getElementById("heading").innerHTML = "Gameweek " + gameweek;
+					
+					snapshot.forEach(function(childSnapshot) {
+						noOfGames = childSnapshot.key;
+						homeTeam = childSnapshot.child('Home').val();
+						homeGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Home' class='scores' value=" + childSnapshot.child('Home Goals').val() + "> </input>";
+						awayTeam = childSnapshot.child('Away').val();
+						awayGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Away' class='scores' value=" + childSnapshot.child('Away Goals').val() + "> </input>";
+						
+						var span = document.createElement('span');
+						//span.innerHTML = ['<p id="',key, '" class="game">', homeTeam, homeGoals, awayGoals, awayTeam, '</p>'].join('');
+						span.innerHTML = ['<div id="Game_',noOfGames,'" class="game"> <div id="Game_',noOfGames,'_Home_Team" class="homeTeam">', homeTeam, '</div> <div class="goals">', homeGoals, " - ", awayGoals, '</div> <div id="Game_',noOfGames,'_Away_Team" class="awayTeam">', awayTeam, '</div> </div>'].join('');
+						fixtures = document.getElementById('fixtures_table');
+						fixtures.insertBefore(span, null);
+					});
+				});
+			}
+		}
+		
+		function nextWeek() {
+			if (gameweek == 38) {
+				document.getElementById("nextButton").disabled = true;
+				return;
+			} else {
+				gameweek++;
+				if (gameweek == currentGameweek) {
+					document.getElementById("getCurrentGameweekBtn").style.display = "none";
+					document.getElementById("updateGameweekBtn").style.display = "inline";
+				} else {
+					document.getElementById("updateGameweekBtn").style.display = "none";
+					document.getElementById("getCurrentGameweekBtn").style.display = "inline";
+				}
+				
+				if(gameweek == 38) {
+					document.getElementById("nextButton").disabled = true;
+				}
+				
+				if(gameweek == 2) {
+					document.getElementById("previousButton").disabled = false;
+				}
+				
+				var fixturesRef = firebase.database().ref('Premier League/' + gameweek + "/Matches");
+				var homeTeam;
+				var homeGoals;
+				var awayTeam;
+				var awayGoals;
+				
+				fixturesRef.on("value", function(snapshot) {
+					document.getElementById('fixtures_table').innerHTML = "";
+					document.getElementById("heading").innerHTML = "Gameweek " + gameweek;
+					
+					snapshot.forEach(function(childSnapshot) {
+						noOfGames = childSnapshot.key;
+						homeTeam = childSnapshot.child('Home').val();
+						homeGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Home' class='scores' value=" + childSnapshot.child('Home Goals').val() + "> </input>";
+						awayTeam = childSnapshot.child('Away').val();
+						awayGoals = "<input type='number' min='0' id='Game_" + noOfGames + "_Away' class='scores' value=" + childSnapshot.child('Away Goals').val() + "> </input>";
+						
+						var span = document.createElement('span');
+						//span.innerHTML = ['<p id="',key, '" class="game">', homeTeam, homeGoals, awayGoals, awayTeam, '</p>'].join('');
+						span.innerHTML = ['<div id="Game_',noOfGames,'" class="game"> <div id="Game_',noOfGames,'_Home_Team" class="homeTeam">', homeTeam, '</div> <div class="goals">', homeGoals, " - ", awayGoals, '</div> <div id="Game_',noOfGames,'_Away_Team" class="awayTeam">', awayTeam, '</div> </div>'].join('');
+						fixtures = document.getElementById('fixtures_table');
+						fixtures.insertBefore(span, null);
+					});
+				});
+			}
+		}
+		
+		function updateGameweek() {
+			updatingGameweek++;
+			var updateGameweekRef = firebase.database().ref('Premier League/' + currentGameweek + '/Matches');
+			var resultsRef = firebase.database().ref('Premier League/' + currentGameweek + '/Results');
+			var updateUsersTeamsRef = firebase.database().ref('Participants');
+			var teamsRef = firebase.database().ref('Teams');
+			var updates = {};
+			var successful = true;
+			
+			updateGameweekRef.once('value').then(function(snapshot) {
+				document.getElementById('fixtures_table').innerHTML = "";
+				document.getElementById("heading").innerHTML = "Gameweek " + gameweek;
+				var j = 1;
+				console.log("start updating results");
+				snapshot.forEach(function(childSnapshot) {
+					console.log(j);
+					homeTeam = childSnapshot.child('Home').val();
+					homeGoals = childSnapshot.child('Home Goals').val();
+					awayTeam = childSnapshot.child('Away').val();
+					awayGoals = childSnapshot.child('Away Goals').val();
+					
+					if(parseInt(homeGoals) > parseInt(awayGoals)) {
+						updates["/Premier League/" + currentGameweek + "/Results/" + homeTeam] = "Win";
+						updates["/Premier League/" + currentGameweek + "/Results/" + awayTeam] = "Loss";
+					} else if(parseInt(homeGoals) < parseInt(awayGoals)) {
+						updates["/Premier League/" + currentGameweek + "/Results/" + homeTeam] = "Loss";
+						updates["/Premier League/" + currentGameweek + "/Results/" + awayTeam] = "Win";
+					} else if(parseInt(homeGoals) == parseInt(awayGoals)) {
+						updates["/Premier League/" + currentGameweek + "/Results/" + homeTeam] = "Draw";
+						updates["/Premier League/" + currentGameweek + "/Results/" + awayTeam] = "Draw";
+					} else {
+						successful = false;
+					}
+					console.log(successful);
+					j++;
+				});
+				console.log("end updating results");
+				
+				if(successful == true) {
+					firebase.database().ref().update(updates);
+					updates["/Premier League/Current Gameweek"] = (parseInt(currentGameweek)+1).toString();
+					updateUsersTeamsRef.once('value').then(function(participantsSnapshot) {
+						console.log("childSnapshot: " + participantsSnapshot.key);
+						participantsSnapshot.forEach(function(leagueNameSnapshot) {
+							leagueNameSnapshot.forEach(function(userIDSnapshot) {
+								if(userIDSnapshot.child("Selected Team").val() == null && userIDSnapshot.child("Standing").val() == "In") {
+									updateUsersTeamsRef.child(leagueNameSnapshot.key).child(userIDSnapshot.key).child("Available").limitToFirst(1).once('value').then(function(availableSnapshot) {
+										availableSnapshot.forEach(function(teamsSnapshot) {
+											console.log("childChildSnapshot: " + leagueNameSnapshot.key);
+											console.log("childChildChildSnapshot: " + userIDSnapshot.key);
+											console.log(teamsSnapshot.key);
+											
+											if(updatingGameweek == "21") {
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Unavailable/" + (parseInt(currentGameweek)-1).toString()] = teamsSnapshot.key;
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Selected Team"] = null;
+												
+												resultsRef.child(teamsSnapshot.key).once('value').then(function(resultsSnapshot) {
+													if(resultsSnapshot.val() == "Loss" || resultsSnapshot.val() == "Draw") {
+														console.log("Standing: " + resultsSnapshot.val());
+														updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Standing"] = "Out";
+														firebase.database().ref().update(updates);
+													}
+												});
+												
+												teamsRef.once('value').then(function(availableTeamsSnapshot) {
+													availableTeamsSnapshot.forEach(function(eachTeamSnapshot) {
+														updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Available/" + eachTeamSnapshot.key] = "true";
+													});
+													firebase.database().ref().update(updates);
+												});
+												firebase.database().ref().update(updates);
+											} else {
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Unavailable/" + (parseInt(currentGameweek)-1).toString()] = teamsSnapshot.key;
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Available/" + teamsSnapshot.key] = null;
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Selected Team"] = null;
+												
+												resultsRef.child(teamsSnapshot.key).once('value').then(function(resultsSnapshot) {
+													if(resultsSnapshot.val() == "Loss" || resultsSnapshot.val() == "Draw") {
+														console.log("Standing: " + resultsSnapshot.val());
+														updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Standing"] = "Out";
+														firebase.database().ref().update(updates);
+													} else {
+														console.log("Standing: " + resultsSnapshot.val());
+													}
+												});
+												
+												firebase.database().ref().update(updates);
+											}
+										});
+										firebase.database().ref().update(updates);
+									});
+								} else {
+									console.log("childChildSnapshot: " + leagueNameSnapshot.key);
+									console.log("childChildChildSnapshot: " + userIDSnapshot.key);
+									console.log(userIDSnapshot.child("Selected Team").val());
+									
+									if(updatingGameweek == "21") {
+										updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Unavailable/" + (parseInt(currentGameweek)-1).toString()] = userIDSnapshot.child("Selected Team").val();
+										updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Selected Team"] = null;
+										
+										resultsRef.child(userIDSnapshot.child("Selected Team").val()).once('value').then(function(resultsSnapshot) {
+											if(resultsSnapshot.val() == "Loss" || resultsSnapshot.val() == "Draw") {
+												console.log("Standing: " + resultsSnapshot.val());
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Standing"] = "Out";
+												firebase.database().ref().update(updates);
+											}
+										});
+										
+										teamsRef.once('value').then(function(availableTeamsSnapshot) {
+											availableTeamsSnapshot.forEach(function(eachTeamSnapshot) {
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Available/" + eachTeamSnapshot.key] = "true";
+											});
+											firebase.database().ref().update(updates);
+										});
+										firebase.database().ref().update(updates);
+									} else {
+										updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Unavailable/" + (parseInt(currentGameweek)-1).toString()] = userIDSnapshot.child("Selected Team").val();
+										updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Available/" + userIDSnapshot.child("Selected Team").val()] = null;
+										updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Selected Team"] = null;
+										
+										resultsRef.child(userIDSnapshot.child("Selected Team").val()).once('value').then(function(resultsSnapshot) {
+											if(resultsSnapshot.val() == "Loss" || resultsSnapshot.val() == "Draw") {
+												console.log("Standing: " + resultsSnapshot.val());
+												updates["/Participants/" + leagueNameSnapshot.key + "/" + userIDSnapshot.key + "/Standing"] = "Out";
+												firebase.database().ref().update(updates);
+											} else {
+												console.log("Standing: " + resultsSnapshot.val());
+											}
+										});
+										
+										firebase.database().ref().update(updates);
+									}
+								}
+							});
+							firebase.database().ref().update(updates);
+						});
+					});
+					
+					firebase.database().ref().update(updates);
+					$('#updatedGameweekMessage').fadeIn(1000);
+					$('#updatedGameweekMessage').fadeOut(2500);
+					getCurrentGameweek();
+				} else {
+					$('#invalidScoreMessage').fadeIn(1000);
+					$('#invalidScoreMessage').fadeOut(2500);
+					updates = {};
+					getCurrentGameweek();
+				}
+			});
+		}
+	</script>
+	
+</html>

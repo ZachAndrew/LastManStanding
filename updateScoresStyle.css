@@ -1,0 +1,93 @@
+body {
+	text-align: center;
+}
+
+#container {
+	display: inline-block;
+	margin: auto;
+	text-align: center;
+	width: 920px;
+	max-width: 100%;
+}
+
+#heading_container {
+	white-space: nowrap;
+}
+
+#heading {
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+h1 {
+	font-size: 20px;
+}
+
+#fixtures_table {
+	display: inline-block;
+	text-align: center;
+	margin: auto;
+}
+
+.game {
+	margin: auto;
+	margin-bottom: 10px;
+	text-align:center;
+	white-space: nowrap;
+}
+
+.homeTeam {
+	width: 100px;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.goals {
+	display: inline-block;
+}
+
+.awayTeam {
+	width: 100px;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.scores {
+	width: 50px;
+}
+
+#btns {
+	margin-bottom: 10px;
+}
+
+#moreBtns {
+	text-align: center;
+}
+
+#getCurrentGameweekBtn {
+	display: none;
+}
+#updatedScoresMessage {
+	display: none;
+	color: #4286f4;
+	font-size: 20px;
+}
+
+#invalidScoreMessage {
+	display: none;
+	color: #ff3333;
+	font-size: 20px;
+}
+
+#resetScoresMessage {
+	display: none;
+	color: #4286f4;
+	font-size: 20px;
+}
+
+#updatedGameweekMessage {
+	display: none;
+	color: #4286f4;
+	font-size: 20px;
+}
